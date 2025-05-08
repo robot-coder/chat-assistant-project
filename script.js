@@ -8,7 +8,9 @@ document.getElementById('send-button').addEventListener('click', async () => {
         body: JSON.stringify({ user_input: userInput }),
     });
     const data = await response.json();
-    document.getElementById('messages').innerHTML += `<div>User: ${userInput}</div>`;
-    document.getElementById('messages').innerHTML += `<div>Assistant: ${data.response}</div>`;
+    // Append user input and assistant response to the messages div
+    const messagesDiv = document.getElementById('messages');
+    messagesDiv.innerHTML += `<div>User: ${userInput}</div>`;
+    messagesDiv.innerHTML += `<div>Assistant: ${data.response}</div>`;
     document.getElementById('user-input').value = '';
 });
