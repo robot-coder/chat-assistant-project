@@ -1,16 +1,12 @@
-document.getElementById('send-button').addEventListener('click', async () => {
-    const userInput = document.getElementById('user-input').value;
-    const response = await fetch('/chat', {
+document.getElementById('upload-button').addEventListener('click', async () => {
+    const fileInput = document.getElementById('file-upload');
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch('/uploadfile/', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_input: userInput }),
+        body: formData,
     });
     const data = await response.json();
-    // Append user input and assistant response to the messages div
-    const messagesDiv = document.getElementById('messages');
-    messagesDiv.innerHTML += `<div>User: ${userInput}</div>`;
-    messagesDiv.innerHTML += `<div>Assistant: ${data.response}</div>`;
-    document.getElementById('user-input').value = '';
+    alert(`Uploaded file: ${data.filename}`);
 });
